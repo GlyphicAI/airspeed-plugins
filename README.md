@@ -12,6 +12,7 @@ plugins/airspeed/
   .claude-plugin/plugin.json  Claude manifest
   .mcp.json                  Shared remote MCP connection
   skills/account-brief/      Shared workflow instructions
+.claude-plugin/marketplace.json  Claude repository installation catalog
 scripts/package.py           Validate metadata and build the release ZIP
 tests/cases.json              Five positive and three negative workflow cases
 docs/release.md               Installation, submission, and update process
@@ -64,11 +65,13 @@ submission, and version rollout.
 ## Release status
 
 This is an unpublished release candidate. Local package validation is separate
-from authenticated client testing and marketplace approval. A publisher-approved
-license, branding, listing fields, reviewer account, and submission access are
-required before public release. No license is selected by this scaffold.
+from authenticated client testing and marketplace approval. Listing review, a
+dedicated reviewer account, and submission access are still required.
+
+The source is published without an open-source license. Copyright 2026 Airspeed.
+All rights reserved. Airspeed retains its branding and trademark rights.
 
 The packaged logo is Airspeed's
-[public favicon](https://www.goairspeed.com/images/favicon.png). Using it here does
+[public webclip icon](https://www.goairspeed.com/images/webclip.png). Using it here does
 not grant trademark or redistribution rights to others. Support and setup help:
 [Airspeed documentation](https://docs.goairspeed.com/).

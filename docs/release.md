@@ -31,6 +31,14 @@ repository. Any case not run remains unverified.
 
 ### Claude
 
+The repository includes a Claude marketplace catalog. Once the repository is
+available to the installer:
+
+```sh
+claude plugin marketplace add GlyphicAI/airspeed-plugins
+claude plugin install airspeed@airspeed-plugins
+```
+
 For a local Claude Code package check:
 
 ```sh
@@ -57,8 +65,9 @@ an existing registered MCP ID can stand in for the remote server submission.
 
 ## Before submission
 
-- Select the owning company accounts, repository visibility, approved license,
-  maintainer, and support contact. Add the real repository URL after creation.
+- Source: https://github.com/GlyphicAI/airspeed-plugins. The package is proprietary
+  and has no open-source license. Use the Airspeed company publishing accounts
+  and designated maintainer for submissions.
 - Supply approved logo, listing copy, privacy policy, terms, and support links.
 - Provide a dedicated reviewer account with representative synthetic calls and
   usable sign-in instructions. Verify OAuth from a clean browser session.
