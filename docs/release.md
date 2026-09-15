@@ -68,7 +68,8 @@ an existing registered MCP ID can stand in for the remote server submission.
 - Source: https://github.com/GlyphicAI/airspeed-plugins. The package is proprietary
   and has no open-source license. Use the Airspeed company publishing accounts
   and designated maintainer for submissions.
-- Supply approved logo, listing copy, privacy policy, terms, and support links.
+- Review the [listing draft](listing.md), which includes public links and starter
+  prompts. Supply the approved logo and final listing copy to each portal.
 - Provide a dedicated reviewer account with representative synthetic calls and
   usable sign-in instructions. Verify OAuth from a clean browser session.
 - Check the entire server tool list and schemas, including tools this skill does
