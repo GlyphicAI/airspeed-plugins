@@ -1,0 +1,18 @@
+{
+  "name": "airspeed",
+  "version": "0.1.0",
+  "description": "Prepare for customer conversations using Airspeed calls and analysis.",
+  "author": {
+    "name": "Airspeed",
+    "url": "https://www.goairspeed.com"
+  },
+  "homepage": "https://docs.goairspeed.com/articles/1087586625-airspeed-mcp-server",
+  "keywords": [
+    "sales",
+    "account-brief",
+    "customer-calls"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "repository": "https://github.com/GlyphicAI/airspeed-plugins"
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Account brief"
+  short_description: "Prepare an account brief from Airspeed calls"
+  default_prompt: "Use $account-brief to prepare me for a customer conversation."

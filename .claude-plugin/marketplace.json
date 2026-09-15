@@ -1,0 +1,13 @@
+{
+  "name": "airspeed-plugins",
+  "owner": {
+    "name": "Airspeed"
+  },
+  "plugins": [
+    {
+      "name": "airspeed",
+      "source": "./plugins/airspeed",
+      "description": "Prepare for customer conversations using Airspeed calls and analysis."
+    }
+  ]
+}

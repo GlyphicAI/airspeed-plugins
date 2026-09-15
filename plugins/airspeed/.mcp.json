@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "airspeed": {
+      "type": "http",
+      "url": "https://mcp.goairspeed.com/mcp-oauth"
+    }
+  }
+}

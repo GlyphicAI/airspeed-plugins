@@ -1,0 +1,36 @@
+{
+  "name": "airspeed",
+  "version": "0.1.0",
+  "description": "Prepare for customer conversations using Airspeed calls and analysis.",
+  "author": {
+    "name": "Airspeed",
+    "url": "https://www.goairspeed.com"
+  },
+  "homepage": "https://docs.goairspeed.com/articles/1087586625-airspeed-mcp-server",
+  "keywords": [
+    "sales",
+    "account-brief",
+    "customer-calls"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Airspeed",
+    "shortDescription": "Turn customer calls into an account brief.",
+    "longDescription": "Prepare an account brief from calls, summaries, extracted insights, and transcripts you can access in Airspeed, with links to the source calls.",
+    "developerName": "Airspeed",
+    "category": "Productivity",
+    "capabilities": [],
+    "websiteURL": "https://www.goairspeed.com",
+    "privacyPolicyURL": "https://www.goairspeed.com/privacy-policy",
+    "termsOfServiceURL": "https://www.goairspeed.com/terms",
+    "composerIcon": "./assets/logo.png",
+    "logo": "./assets/logo.png",
+    "defaultPrompt": [
+      "Prepare an account brief for my next customer conversation.",
+      "Summarize the commitments from these Airspeed calls.",
+      "What questions should I ask this customer next?"
+    ]
+  },
+  "mcpServers": "./.mcp.json",
+  "repository": "https://github.com/GlyphicAI/airspeed-plugins"
+}
