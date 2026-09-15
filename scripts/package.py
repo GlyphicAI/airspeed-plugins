@@ -34,6 +34,14 @@ def main() -> None:
             raise ValueError("Both manifests must use the shared skills directory")
         if manifest.get("mcpServers") != "./.mcp.json":
             raise ValueError("Both manifests must use the shared MCP configuration")
+    marketplace = json.loads((root / ".claude-plugin/marketplace.json").read_text())
+    entries = marketplace.get("plugins", [])
+    if not marketplace.get("description") or not any(
+        entry.get("name") == plugin.name
+        and entry.get("source") == f"./plugins/{plugin.name}"
+        for entry in entries
+    ):
+        raise ValueError("Claude marketplace must point to the packaged plugin")
     connection = json.loads((plugin / ".mcp.json").read_text())
     expected_connection = {
         "mcpServers": {

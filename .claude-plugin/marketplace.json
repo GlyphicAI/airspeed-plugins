@@ -9,5 +9,6 @@
       "source": "./plugins/airspeed",
       "description": "Prepare for customer conversations using Airspeed calls and analysis."
     }
-  ]
+  ],
+  "description": "Airspeed workflows for customer conversations, powered by the Airspeed MCP."
 }
