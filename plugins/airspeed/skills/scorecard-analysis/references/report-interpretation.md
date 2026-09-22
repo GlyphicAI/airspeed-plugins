@@ -28,6 +28,16 @@ the exact field names. Sort by `score_date` and follow page cursors. Optional
 Do not reconstruct hidden call identities: authorized numeric cohort metrics
 can include evaluations whose call details the current user cannot read.
 
+Result skills expose `current_max_score`, not a saved historical maximum.
+`historical_scale="unknown"` means the evaluation did not preserve its original
+rubric scale. Keep the stored score as reported; never divide it by the current
+maximum or infer a historical percentage from it. Removed or renamed skills
+remain visible with a null current maximum. A persisted overall percentage is
+a separate stored value and must not be recalculated from today's rubric.
+Report skill percentages preserve the app's current-rubric calculations; they
+do not establish that old evaluations used a comparable scale. State this limit
+and avoid a historical skill comparison when compatibility cannot be verified.
+
 Use `include=["examples"]` for scoped call examples. A missing example does not
 make its aggregate zero. Return links only when provided and still accessible.
 

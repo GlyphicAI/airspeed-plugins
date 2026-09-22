@@ -267,5 +267,20 @@
       "Treats unavailable revenue as missing and makes no revenue-improvement claim",
       "Includes scope, sample count, units and time-basis limitations beside the visual"
     ]
+  },
+  {
+    "id": "S11",
+    "kind": "negative",
+    "skill": "scorecard-analysis",
+    "name": "Historical rubric scale is unknown",
+    "setup": "A stored result has score=2, current_max_score=4, historical_scale=unknown and total_score_percentage=1.0. Its original rubric had two labels. Another stored skill has current_max_score=null after it was renamed. A report returns current-rubric skill percentages.",
+    "prompt": "Compare my historical skill scores and show how much I improved.",
+    "expect": [
+      "Does not reinterpret the stored score as 2/4 or replace its persisted overall percentage",
+      "Retains the historical skill whose current rubric no longer matches",
+      "Explains that the original skill scale is unknown and compatibility is unverified",
+      "Does not claim that app report percentages prove historical rubric comparability",
+      "Limits the comparison or uses an evidence table instead of inventing a normalized improvement trend"
+    ]
   }
 ]
