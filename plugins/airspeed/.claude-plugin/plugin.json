@@ -1,7 +1,7 @@
 {
   "name": "airspeed",
-  "version": "0.1.0",
-  "description": "Prepare for customer conversations using Airspeed calls and analysis.",
+  "version": "0.2.0",
+  "description": "Prepare account briefs and analyze coaching scorecards using Airspeed evidence.",
   "author": {
     "name": "Airspeed",
     "url": "https://www.goairspeed.com"
@@ -10,7 +10,9 @@
   "keywords": [
     "sales",
     "account-brief",
-    "customer-calls"
+    "customer-calls",
+    "scorecards",
+    "coaching"
   ],
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Scorecard analysis"
+  short_description: "Analyze coaching scores with comparable evidence"
+  default_prompt: "Use $scorecard-analysis to review my coaching results and visualize comparable strengths and trends."

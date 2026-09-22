@@ -15,18 +15,31 @@ change CRM records, or send messages.
 - Use supplied Airspeed call links or IDs with `get_call_info`. Otherwise use
   `list_calls` to find candidates. The client may prefix these tool names with the
   Airspeed connection name.
-- `list_calls` can filter by `participant_email`, `start_time_from`,
-  `start_time_to`, `title_filter`, and `tag_ids`. It has no account-name, domain,
-  or CRM-ID filter, and title search does not search transcripts or summaries.
-  Use known contact emails, title text, dates, or tags to narrow candidates, then
-  check returned companies and participants against the requested account.
+- Inspect the connected `list_calls` schema before choosing arguments. Prefer
+  its typed `filters` when advertised. Use the same advertised range, person,
+  and set shapes across tools, with only the fields/operators each supports.
+  The shared range convention is `{gte, lt}` (inclusive start, exclusive end)
+  with timezone offsets; explicit users use `{mode: "ids", ids: [...]}` with
+  returned Airspeed user IDs. A common convention does not prove a field exists
+  on a particular server release. Do not combine old and new filter forms.
+- Older servers expose `participant_email`, `start_time_from`, `start_time_to`,
+  `title_filter`, and `tag_ids`. Use those flat arguments only when the live
+  schema requires them. Their upper date bound is inclusive; do not remap an
+  exclusive end to it blindly. Overfetch the date boundary and exclude records
+  at or after the intended end when needed. Tag IDs match any supplied tag.
+- Use supported contact-email, title, date, or tag filters to find candidates,
+  then check returned companies and participants against the account. Title
+  search does not search transcripts or summaries. Only use account, domain,
+  or CRM-ID filtering if explicitly supported by the connected schema.
 - If the account is ambiguous, ask for a contact email, company domain, or call
   link before combining records. A domain helps identify returned companies; do
   not pass it as an email filter or invent a domain filter. A title match alone
   does not prove the company match, and no title matches do not prove no calls.
-- For "my calls", use the user's confirmed meeting email as
-  `participant_email`. Ask if unknown. Unfiltered results include all calls the
-  user can access, not only those they attended.
+- For "my calls", use a supported self selector only when its documented meeting
+  identity is appropriate, or the user's confirmed meeting email in the advertised
+  participant filter (`participant_email` on older servers). Ask if unclear; do
+  not assume account email is meeting email. Unfiltered results include all calls
+  the user can access, not only those they attended.
 - Respect a requested date range. Resolve relative dates in the user's timezone
   when it affects the range. For an unspecified recent brief, start with the last
   30 days and state that scope. Broaden only when needed to answer the request.

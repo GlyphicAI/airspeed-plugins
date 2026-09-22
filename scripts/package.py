@@ -64,7 +64,25 @@ def main() -> None:
             raise ValueError(f"Skill name does not match its directory: {skill}")
         if "[TODO" in content or "\ndescription: " not in content.split("---", 2)[1]:
             raise ValueError(f"Incomplete skill frontmatter: {skill}")
+        if not (skill.parent / "agents" / "openai.yaml").is_file():
+            raise ValueError(f"Missing skill interface metadata: {skill.parent.name}")
     cases = json.loads((root / "tests/cases.json").read_text())
+    skill_names = {skill.parent.name for skill in skills}
+    case_ids = set()
+    for case in cases:
+        if not case.get("id") or case["id"] in case_ids:
+            raise ValueError("Behavior case IDs must be present and unique")
+        case_ids.add(case["id"])
+        if case.get("skill") not in skill_names:
+            raise ValueError(f"Unknown behavior case skill: {case['id']}")
+        if case.get("kind") not in {"positive", "negative"}:
+            raise ValueError(f"Invalid behavior case kind: {case['id']}")
+        if not all(case.get(field) for field in ("name", "setup", "prompt", "expect")):
+            raise ValueError(f"Incomplete behavior case: {case['id']}")
+    for skill_name in skill_names:
+        kinds = {case["kind"] for case in cases if case["skill"] == skill_name}
+        if kinds != {"positive", "negative"}:
+            raise ValueError(f"Missing positive or negative cases: {skill_name}")
     if (
         sum(case["kind"] == "positive" for case in cases) < 5
         or sum(case["kind"] == "negative" for case in cases) < 3
@@ -90,7 +108,10 @@ def main() -> None:
         if path.suffix not in {".json", ".md", ".yaml", ".png", ".svg"}:
             raise ValueError(f"Unexpected runtime file type: {relative}")
         files.append((path, relative))
-    print(f"Validated {len(skills)} skills and {len(files)} runtime files")
+    print(
+        f"Validated {len(skills)} skills, {len(cases)} case definitions, "
+        f"and {len(files)} runtime files"
+    )
     if args.dry_run:
         print("No archive written; authenticated behavior cases were not run")
         return

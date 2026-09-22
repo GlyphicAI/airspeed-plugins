@@ -20,7 +20,9 @@ maintain a third copy. Revisit that choice if a platform changes its requirement
 3. When available, also run the plugin-creator `validate_plugin.py` on
    `plugins/airspeed` and skill-creator `quick_validate.py` on each skill folder.
 4. Run the cases in `tests/cases.json` in fresh ChatGPT and Claude sessions using
-   dedicated synthetic records. Do not publish production transcripts or tokens.
+   dedicated synthetic records. Each case names its skill. Exercise canonical
+   filters only when exposed by the live schema and the legacy call path against
+   an older schema. Do not publish production transcripts or tokens.
 5. Run `python3 scripts/package.py`; record its filename and SHA-256.
 
 Record client version/surface, plugin version, test date, test user role, cases
@@ -50,6 +52,8 @@ invoke `/airspeed:account-brief`. Also test in the intended Claude desktop or we
 plugin surface; a CLI pass does not establish compatibility there. Use the
 current Claude plugin upload/install flow and confirm both the skill and remote
 MCP are available. Account and workspace policy can restrict installations.
+Invoke `/airspeed:scorecard-analysis` after the scorecard read tools are deployed;
+confirm the chart or table preserves scales, missing observations, and citations.
 
 ### ChatGPT
 
@@ -65,6 +69,17 @@ an existing registered MCP ID can stand in for the remote server submission.
 
 ## Before submission
 
+- The scorecard workflow requires deployed `list_scorecards`, `get_scorecard`,
+  `list_scorecard_results`, and `get_scorecard_report` tools. Record the discovered
+  schema and backend SHA for the tested release. A missing tool is a failed
+  release prerequisite, not proof that a user has no scorecards.
+- Validate with the real development MCP client first, the staging connector
+  after deployment, then a final manual production connector check. Keep those
+  results separate from package checks. Staging endpoint overrides stay local;
+  do not change the shared production connection to run tests. The skill cases
+  are read-only; backend write acceptance uses its own dedicated-record cases.
+- Test scorecard visuals in both intended client surfaces. A valid package or
+  Markdown example does not prove tool discovery, access parity, or rendering.
 - Source: https://github.com/GlyphicAI/airspeed-plugins. The package is proprietary
   and has no open-source license. Use the Airspeed company publishing accounts
   and designated maintainer for submissions.
