@@ -13,7 +13,7 @@ delete data, run agents, or send coaching messages as part of this workflow.
 
 - Inspect the connected tool definitions. Use `list_scorecards` to identify a
   rubric, `get_scorecard` for its definition, `list_scorecard_results` for scored
-  observations, and `get_scorecard_report` for available reports. Connection
+  observations, and `get_scorecard_report` for the native team overview. Connection
   names may prefix tools. These capabilities depend on the server release; if
   one is unavailable, explain the gap and analyze only supplied or retrieved
   evidence. Do not substitute a write, generation, or agent-run tool.
@@ -25,13 +25,17 @@ delete data, run agents, or send coaching messages as part of this workflow.
   advertised range, person, and set shapes across tools, but only fields and
   operators each tool supports. Filters narrow the signed-in user's access;
   a team/report filter does not grant access to additional people.
-- Follow returned cursors with unchanged filters and ordering. Deduplicate by
-  result ID, not by call alone: one call can have several evaluated people or
-  scorecards. State pagination, sampling, source, and date limits.
+- The reduced native interface has no scorecard cursors. Per-call reads return
+  a result list; one-user history retains the app's grouped response and at most
+  100 results per scorecard. Do not invent paging, report sections, revenue
+  lookups or an exhaustive export. Deduplicate by result ID, not call alone;
+  one call can have several evaluated people or scorecards. State these limits.
 - Read the definition applicable to each result, including version, skill,
   scale, score direction, weight, and rubric meaning where provided. Current
-  definitions may differ from those used to score older calls. Do not invent
-  missing version metadata or infer comparability from a shared name.
+  definitions may differ from those used to score older calls. Native `max_score`
+  reflects the current rubric, historical scale/version is unknown, and removed
+  skills may be absent. Do not invent provenance or infer comparability from a
+  shared name.
 
 ## Interpret scores honestly
 

@@ -15,18 +15,17 @@ change CRM records, or send messages.
 - Use supplied Airspeed call links or IDs with `get_call_info`. Otherwise use
   `list_calls` to find candidates. The client may prefix these tool names with the
   Airspeed connection name.
-- Inspect the connected `list_calls` schema before choosing arguments. Prefer
-  its typed `filters` when advertised. Use the same advertised range, person,
-  and set shapes across tools, with only the fields/operators each supports.
-  The shared range convention is `{gte, lt}` (inclusive start, exclusive end)
-  with timezone offsets; explicit users use `{mode: "ids", ids: [...]}` with
-  returned Airspeed user IDs. A common convention does not prove a field exists
-  on a particular server release. Do not combine old and new filter forms.
-- Older servers expose `participant_email`, `start_time_from`, `start_time_to`,
-  `title_filter`, and `tag_ids`. Use those flat arguments only when the live
-  schema requires them. Their upper date bound is inclusive; do not remap an
-  exclusive end to it blindly. Overfetch the date boundary and exclude records
-  at or after the intended end when needed. Tag IDs match any supplied tag.
+- Inspect the connected `list_calls` schema before choosing arguments. The
+  reduced typed `filters` supports `title`, `participant_email`, and
+  `tag_ids: {any_of: [...]}`. Shared `{gte, lt}` ranges and user selections do
+  not imply that a particular tool supports those fields. Do not invent them.
+- The flat `participant_email`, `start_time_from`, `start_time_to`, `title_filter`,
+  and `tag_ids` remain supported for native date filtering. Choose that form
+  when dates are needed; never combine it with grouped `filters`. Its upper
+  date bound is inclusive and its existing native date/sort behavior is
+  preserved. Exclude retrieved boundary records outside the requested period
+  from the brief, while stating retrieval limits; do not claim exhaustive or
+  exact timestamp coverage from a bounded page. Tag IDs match any supplied tag.
 - Use supported contact-email, title, date, or tag filters to find candidates,
   then check returned companies and participants against the account. Title
   search does not search transcripts or summaries. Only use account, domain,

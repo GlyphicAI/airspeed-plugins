@@ -20,9 +20,9 @@ maintain a third copy. Revisit that choice if a platform changes its requirement
 3. When available, also run the plugin-creator `validate_plugin.py` on
    `plugins/airspeed` and skill-creator `quick_validate.py` on each skill folder.
 4. Run the cases in `tests/cases.json` in fresh ChatGPT and Claude sessions using
-   dedicated synthetic records. Each case names its skill. Exercise canonical
-   filters only when exposed by the live schema and the legacy call path against
-   an older schema. Do not publish production transcripts or tokens.
+   dedicated synthetic records. Each case names its skill. Exercise only the
+   advertised typed filters and the supported flat call-date selectors, without
+   mixing forms. Do not publish production transcripts or tokens.
 5. Run `python3 scripts/package.py`; record its filename and SHA-256.
 
 Record client version/surface, plugin version, test date, test user role, cases

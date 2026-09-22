@@ -40,13 +40,15 @@ After installing and connecting Airspeed in your client:
 
 The plugin may ask for a contact email or call link to identify the right account.
 Call title search does not search transcripts. Each workflow uses the connected
-tool schemas, preferring typed filters where available and retaining legacy call
-arguments for older servers. A returned CRM ID is a stored reference, not live
+tool schemas, using supported typed filters and the existing flat call
+arguments when native date filtering is needed. A returned CRM ID is a stored reference, not live
 CRM data.
 
 Scorecard analysis needs the server's scorecard read tools. If they are absent,
 the skill explains the missing capability and can analyze supplied evidence;
-it does not generate new results or start an agent as a substitute. This workflow
+it does not generate new results or start an agent as a substitute. The reduced
+scorecard interface is read-only, keeps native history limits, and does not
+preserve historical rubric scales. This workflow
 awaits backend deployment and authenticated client validation before release.
 
 ## Maintain and extend
