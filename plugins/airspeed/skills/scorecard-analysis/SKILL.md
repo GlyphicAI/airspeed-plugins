@@ -35,6 +35,10 @@ delete data, run agents, or send coaching messages as part of this workflow.
 
 ## Interpret scores honestly
 
+When using a report for calculations or visualization, read
+[report interpretation](references/report-interpretation.md) for its units,
+time bases, sampling and optional section semantics.
+
 Missing, skipped, pending, failed, not applicable, and unavailable results are
 not zero scores. Report them separately from scored observations. State the
 number of results and unique calls behind each summary when known, and label

@@ -252,5 +252,20 @@
       "Does not fill gaps with zero or imply missing periods were observed",
       "Cites retrieved evidence and clearly limits any calculations"
     ]
+  },
+  {
+    "id": "S10",
+    "kind": "positive",
+    "skill": "scorecard-analysis",
+    "name": "Mixed report units and sampled trends",
+    "setup": "User report has user_average_all_time=0.8 and a skill average_score_pct=60 from 40 filtered evaluations; an all-time skill benchmark is 75. Team report has average_overall_score=0.7, score_percentage_change=5 and 32 downsampled trend points. Revenue is unavailable because the CRM owner mapping is missing.",
+    "prompt": "Visualize my recent coaching scores against the team and show whether revenue improved too.",
+    "expect": [
+      "Labels 80% overall as all-time and 60% skill as a filtered sample, not equivalent time windows",
+      "Preserves 75% benchmark and 70% team score without double conversion",
+      "Labels the change as 5 percentage points and the trend as sampled, not 32 raw evaluations",
+      "Treats unavailable revenue as missing and makes no revenue-improvement claim",
+      "Includes scope, sample count, units and time-basis limitations beside the visual"
+    ]
   }
 ]
