@@ -1,7 +1,7 @@
 {
   "name": "airspeed",
-  "version": "0.1.0",
-  "description": "Prepare for customer conversations using Airspeed calls and analysis.",
+  "version": "0.2.0",
+  "description": "Prepare account briefs and analyze coaching scorecards using Airspeed evidence.",
   "author": {
     "name": "Airspeed",
     "url": "https://www.goairspeed.com"
@@ -10,13 +10,15 @@
   "keywords": [
     "sales",
     "account-brief",
-    "customer-calls"
+    "customer-calls",
+    "scorecards",
+    "coaching"
   ],
   "skills": "./skills/",
   "interface": {
     "displayName": "Airspeed",
-    "shortDescription": "Turn customer calls into an account brief.",
-    "longDescription": "Prepare an account brief from calls, summaries, extracted insights, and transcripts you can access in Airspeed, with links to the source calls.",
+    "shortDescription": "Understand calls and coaching with Airspeed evidence.",
+    "longDescription": "Prepare account briefs and analyze existing coaching scorecards you can access in Airspeed, with comparable visuals and links to source evidence. Scorecard analysis requires the server scorecard read tools.",
     "developerName": "Airspeed",
     "category": "Productivity",
     "capabilities": [],
@@ -28,7 +30,7 @@
     "defaultPrompt": [
       "Prepare an account brief for my next customer conversation.",
       "Summarize the commitments from these Airspeed calls.",
-      "What questions should I ask this customer next?"
+      "Review my coaching scorecards and show comparable skill trends."
     ]
   },
   "mcpServers": "./.mcp.json",

@@ -7,8 +7,8 @@
     {
       "name": "airspeed",
       "source": "./plugins/airspeed",
-      "description": "Prepare for customer conversations using Airspeed calls and analysis."
+      "description": "Prepare account briefs and analyze coaching scorecards using Airspeed evidence."
     }
   ],
-  "description": "Airspeed workflows for customer conversations, powered by the Airspeed MCP."
+  "description": "Airspeed workflows for customer conversations and coaching, powered by the Airspeed MCP."
 }
