@@ -15,6 +15,9 @@ change CRM records, or send messages.
 - Use supplied Airspeed call links or IDs with `get_call_info`. Otherwise use
   `list_calls` to find candidates. The client may prefix these tool names with the
   Airspeed connection name.
+- Use only arguments advertised by the connected tool schema. If a required
+  tool or field is unavailable, explain the limitation instead of inventing
+  support.
 - `list_calls` can filter by `participant_email`, `start_time_from`,
   `start_time_to`, `title_filter`, and `tag_ids`. It has no account-name, domain,
   or CRM-ID filter, and title search does not search transcripts or summaries.
