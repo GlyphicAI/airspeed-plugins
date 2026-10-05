@@ -17,3 +17,4 @@ jobs:
         with:
           python-version: '3.12'
       - run: python3 scripts/package.py --dry-run
+      - run: python3 -m unittest discover -s tests -p 'test_*.py'

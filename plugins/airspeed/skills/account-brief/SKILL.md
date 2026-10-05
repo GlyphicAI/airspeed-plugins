@@ -12,6 +12,9 @@ change CRM records, or send messages.
 
 ## Find the relevant calls
 
+- Use this plugin's Airspeed connection. If several Airspeed connections are
+  available and you cannot identify the plugin's connection, ask before reading
+  calls. Do not guess from similar tool names.
 - Use supplied Airspeed call links or IDs with `get_call_info`. Otherwise use
   `list_calls` to find candidates. The client may prefix these tool names with the
   Airspeed connection name.
@@ -38,7 +41,10 @@ change CRM records, or send messages.
   identity is appropriate, or the user's confirmed meeting email in the advertised
   participant filter (`participant_email` on older servers). Ask if unclear; do
   not assume account email is meeting email. Unfiltered results include all calls
-  the user can access, not only those they attended.
+  the user can access, not only those they attended. Keep the attendance filter
+  on every search. If no calls match, report the gap or ask permission to broaden
+  beyond calls they attended; do not silently remove the filter or substitute an
+  email.
 - Respect a requested date range. Resolve relative dates in the user's timezone
   when it affects the range. For an unspecified recent brief, start with the last
   30 days and state that scope. Broaden only when needed to answer the request.
@@ -68,6 +74,8 @@ The MCP never exceeds the signed-in user's Airspeed access. Empty results and
 "Call not found" may reflect access limits. Explain what was available without
 guessing whether inaccessible calls exist or trying another identity. If a tool
 fails or is unavailable, report the gap and use only evidence already retrieved.
+Never try another connection, workspace, or environment after an empty result,
+missing call, or tool failure.
 Do not substitute `run_agent`: it starts a new run and is outside this workflow.
 
 ## Return a brief people can use

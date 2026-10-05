@@ -16,6 +16,7 @@ plugins/airspeed/
 .claude-plugin/marketplace.json  Claude repository installation catalog
 scripts/package.py           Validate metadata and build the release ZIP
 tests/cases.json              Behavior cases for both workflows
+tests/test_package.py         Offline upload-format regression tests
 docs/release.md               Installation, submission, and update process
 ```
 
@@ -60,31 +61,55 @@ platform-specific changes in the two small manifests.
 
 ```sh
 python3 scripts/package.py --dry-run
+python3 -m unittest discover -s tests -p 'test_*.py'
 python3 scripts/package.py
 claude plugin validate plugins/airspeed --strict
 ```
 
-The first command validates without creating an archive. The second writes
-`dist/airspeed-<version>.zip`. The same archive carries both supported manifests
-and the same skill files. It excludes this repository's release documentation,
-tests, scripts, and development files.
+The default build writes `dist/airspeed-<version>.zip` with both supported
+manifests and the shared remote MCP configuration. Release archives exclude
+documentation, tests, scripts, and development files.
+
+For **ChatGPT's New Plugin uploader**, first register and connect Airspeed's MCP,
+then build a package using that app's ID:
+
+```sh
+python3 scripts/package.py --chatgpt-app-id asdk_app_YOUR_REGISTERED_APP_ID
+```
+
+Upload **`dist/airspeed-chatgpt-<version>.zip`**. It contains the full plugin and
+references the existing connection through `.app.json`. It omits the remote MCP
+configuration so it does not register a second connection. Use the ID beginning
+with `asdk_app_`, not the `plugin_` prefix shown in some ChatGPT URLs. The ID is
+specific to the registered app; the build does not change the shared source.
+
+For the OpenAI submission portal's **Skills section** only:
+
+```sh
+python3 scripts/package.py --skill account-brief
+```
+
+This writes **`dist/airspeed-account-brief-<version>-skill.zip`**. A skill-only ZIP
+does not work in the New Plugin uploader.
 
 Update both manifest versions together. The packaging check rejects divergent
 metadata. Follow [the release process](docs/release.md) for client checks,
 submission, and version rollout.
 
-## Release status
+## Release scope
 
-This is an unpublished release candidate. Local package validation is separate
-from authenticated client testing and marketplace approval. Listing review, a
-dedicated reviewer account, and submission access are still required.
-The scorecard behavior cases and canonical call-filter path remain pending until
-their backend tools are deployed; metadata validation does not exercise them.
+The released account-brief guidance covers existing MCP reads. The
+scorecard-analysis skill in this change must pass the
+[MCP compatibility gate](docs/release.md#mcp-compatibility-gate) before joining a
+release. Package validation, authenticated client testing, connector listing, and
+plugin publication are separate checks. The scorecard behavior cases and
+canonical call-filter path remain pending until their backend tools are deployed;
+metadata validation does not exercise them.
 
 The source is published without an open-source license. Copyright 2026 Airspeed.
 All rights reserved. Airspeed retains its branding and trademark rights.
 
-The packaged logo is Airspeed's
-[public webclip icon](https://www.goairspeed.com/images/webclip.png). Using it here does
-not grant trademark or redistribution rights to others. Support and setup help:
+The packaged logo is the official Airspeed dark mark on a gradient background,
+also used for the ChatGPT listing. Using it here does not grant trademark or
+redistribution rights to others. Support and setup help:
 [Airspeed documentation](https://docs.goairspeed.com/).
