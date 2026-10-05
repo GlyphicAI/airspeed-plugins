@@ -20,6 +20,9 @@ scorecard-analysis workflow reviews existing coaching results, explains their
 coverage, and visualizes comparable skills or trends with source links. It does
 not change scores or generate new assessments. Scorecard reads must be available
 on the connected server before this workflow can retrieve results. The
+discovery-next-step-autopsy workflow compares Discovery calls that booked a demo
+with those that stalled, using the organization's outcome tags and discovery
+scorecards, and suggests practice clips with call links. The
 connected MCP also lets you find recordings and saved clips, read playbooks, and
 review your own scheduled or event-triggered agent outputs. Where enabled for
 your organization, it can start or continue an Airspeed agent conversation.
@@ -46,7 +49,7 @@ Productivity. Select Sales if the submission portal offers that category.
 
 ## Scope for reviewers
 
-Both skills read existing evidence. They do not start agents or change records.
+All three skills read existing evidence. They do not start agents or change records.
 Agent conversations are a separate capability of the connected MCP, available
 only where enabled for the organization. Scorecard client checks remain pending
 until the backend read tools exist; this draft is not a deployment claim.
