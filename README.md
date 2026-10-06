@@ -13,9 +13,10 @@ plugins/airspeed/
   .mcp.json                  Shared remote MCP connection
   skills/account-brief/      Shared workflow instructions
   skills/scorecard-analysis/ Shared coaching-analysis instructions
+  skills/discovery-next-step-autopsy/ Discovery outcome coaching instructions
 .claude-plugin/marketplace.json  Claude repository installation catalog
 scripts/package.py           Validate metadata and build the release ZIP
-tests/cases.json              Behavior cases for both workflows
+tests/cases.json              Behavior cases for each workflow
 tests/test_package.py         Offline upload-format regression tests
 docs/release.md               Installation, submission, and update process
 ```
@@ -25,7 +26,7 @@ with their own Airspeed account. MCP access never exceeds their Airspeed access.
 This package contains no credentials, customer data, server implementation, or
 local installation hooks.
 
-Both skills read data. The remote server can expose other tools,
+All three skills read data. The remote server can expose other tools,
 including tools that start work. Installing this skill does not restrict the
 server's tool list or replace its authorization and confirmation controls.
 
@@ -38,6 +39,7 @@ After installing and connecting Airspeed in your client:
 - "Summarize the commitments from these Airspeed call links."
 - "What questions should I ask this customer next, based on their recent calls?"
 - "Review my coaching scorecards this month and show comparable skill trends."
+- "Why do some Discovery calls book a demo while others end with no next step?"
 
 The plugin may ask for a contact email or call link to identify the right account.
 Call title search does not search transcripts. Each workflow uses the connected
@@ -51,6 +53,14 @@ it does not generate new results or start an agent as a substitute. The reduced
 scorecard interface is read-only, keeps native history limits, and does not
 preserve historical rubric scales. This workflow
 awaits backend deployment and authenticated client validation before release.
+
+The discovery-next-step-autopsy skill compares Discovery calls by their recorded
+outcome tags, overlays discovery scorecards, and returns strengths, gaps and
+practice clips with call links. It uses `list_call_tags`, `list_calls`,
+`get_call_info`, `list_scorecards`, `get_scorecard`, `list_scorecard_results`,
+`get_scorecard_report` and `list_users`, and uses no write, agent or messaging
+tool. It depends on the organization having Discovery and outcome tags, and on
+the scorecard read tools above.
 
 ## Maintain and extend
 
@@ -99,10 +109,10 @@ submission, and version rollout.
 ## Release scope
 
 The released account-brief guidance covers existing MCP reads. The
-scorecard-analysis skill in this change must pass the
+scorecard-analysis and discovery-next-step-autopsy skills must pass the
 [MCP compatibility gate](docs/release.md#mcp-compatibility-gate) before joining a
 release. Package validation, authenticated client testing, connector listing, and
-plugin publication are separate checks. The scorecard behavior cases and
+plugin publication are separate checks. The scorecard and discovery behavior cases and
 canonical call-filter path remain pending until their backend tools are deployed;
 metadata validation does not exercise them.
 

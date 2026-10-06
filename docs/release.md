@@ -120,6 +120,13 @@ an existing registered MCP ID can stand in for the remote server submission.
   results separate from package checks. Staging endpoint overrides stay local;
   do not change the shared production connection to run tests. The skill cases
   are read-only; backend write acceptance uses its own dedicated-record cases.
+- The discovery-next-step-autopsy workflow additionally uses `list_call_tags`,
+  `list_calls`, `get_call_info` and `list_users`. Record the discovered schemas
+  and confirm the test organisation has a Discovery tag and one tag for each
+  outcome (next step booked, no next step, inconclusive). Run its cases against
+  synthetic calls only; confirm no write, agent or messaging tool is called.
+  It needs `list_scorecard_results` scorecard range reads and per-call reads;
+  `list_scorecards` and `get_scorecard` failures are tolerated by design.
 - Test scorecard visuals in both intended client surfaces. A valid package or
   Markdown example does not prove tool discovery, access parity, or rendering.
 - Source: https://github.com/GlyphicAI/airspeed-plugins. The package is proprietary

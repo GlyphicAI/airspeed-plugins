@@ -1,0 +1,12 @@
+interface:
+  display_name: "Discovery next-step autopsy"
+  short_description: "Coach from Discovery outcomes and scorecards"
+  default_prompt: "Use $discovery-next-step-autopsy to compare Discovery calls that booked a demo with those that stalled, and give me strengths, gaps and practice clips."
+
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "airspeed"
+      description: "Read accessible Airspeed calls, tags and scorecards."
+      transport: "streamable_http"
+      url: "https://mcp.goairspeed.com/mcp-oauth"
