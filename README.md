@@ -14,7 +14,7 @@ plugins/airspeed/
   skills/account-brief/      Shared workflow instructions
 .claude-plugin/marketplace.json  Claude repository installation catalog
 scripts/package.py           Validate metadata and build the release ZIP
-tests/cases.json              Five positive and three negative workflow cases
+tests/cases.json              Seven positive and three negative workflow cases
 tests/test_package.py         Offline upload-format regression tests
 docs/release.md               Installation, submission, and update process
 ```

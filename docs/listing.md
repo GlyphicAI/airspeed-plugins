@@ -43,6 +43,8 @@ Productivity. Select Sales if the submission portal offers that category.
 
 ## Scope for reviewers
 
-The account-brief skill reads existing calls and analysis. It does not start
-agents or change records. Agent conversations are a separate capability of the
-connected MCP, available only where enabled for the organization.
+The account-brief skill reads existing calls and analysis. It does not change
+records. It starts an agent only when the user directly asks to run one, or when
+the request cannot be completed with the other available tools. Agent
+conversations are a separate capability of the connected MCP, available only
+where enabled for the organization.
