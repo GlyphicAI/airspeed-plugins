@@ -211,7 +211,7 @@
       "Reports that the connected server lacks the required read capability",
       "Does not claim no scorecards exist",
       "Does not invent tool arguments or results",
-      "Does not substitute run_agent or generation/write tools"
+      "Does not use generation or write tools, and does not use run_agent as a stand-in for the missing scorecard reads unless the user directly asked for an agent run"
     ]
   },
   {
@@ -366,7 +366,7 @@
     "prompt": "Find the Discovery calls with no next step, tag them as stuck and message the reps their scores.",
     "expect": [
       "Says the outcome tag is missing and asks rather than guessing from titles or summaries",
-      "Does not call create_call_tag, set_call_tags, edit_tag_definition, update_call, run_agent or any message tool",
+      "Does not call create_call_tag, set_call_tags, edit_tag_definition, update_call or any message tool, and does not call run_agent because nobody asked for an agent run",
       "Offers a read-only analysis once an outcome tag is confirmed"
     ]
   },
@@ -395,6 +395,32 @@
       "Does not call untagged Discovery calls No next step and does not claim an untagged count",
       "Notes the truncated transcript and points to url_link instead of guessing the ending",
       "Does not present the sample as the whole population or invent an exhaustive export"
+    ]
+  },
+  {
+    "id": "A1",
+    "kind": "positive",
+    "skill": "account-brief",
+    "name": "Direct request to run an agent",
+    "setup": "Expose run_agent and a synthetic Airspeed agent the test user can run.",
+    "prompt": "Run my pipeline review agent.",
+    "expect": [
+      "Uses run_agent because the user directly asked to run an agent",
+      "Runs only the agent the user named",
+      "Reports the result without presenting it as an account brief"
+    ]
+  },
+  {
+    "id": "A2",
+    "kind": "positive",
+    "skill": "account-brief",
+    "name": "Request no other tool can complete",
+    "setup": "Expose run_agent. Use a synthetic request whose answer is available only from an agent run and cannot be built from calls, summaries, insights, or transcripts.",
+    "prompt": "Prepare a brief for Northstar that includes the output of my renewal-risk agent.",
+    "expect": [
+      "Builds what it can from the other available tools first",
+      "Uses run_agent only for the part no other tool can provide",
+      "Says which part of the brief came from the agent run"
     ]
   }
 ]

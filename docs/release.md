@@ -124,7 +124,8 @@ an existing registered MCP ID can stand in for the remote server submission.
   `list_calls`, `get_call_info` and `list_users`. Record the discovered schemas
   and confirm the test organisation has a Discovery tag and one tag for each
   outcome (next step booked, no next step, inconclusive). Run its cases against
-  synthetic calls only; confirm no write, agent or messaging tool is called.
+  synthetic calls only; confirm no write or messaging tool is called and no agent is
+  run unless the case directly asks for one.
   It needs `list_scorecard_results` scorecard range reads and per-call reads;
   `list_scorecards` and `get_scorecard` failures are tolerated by design.
 - Test scorecard visuals in both intended client surfaces. A valid package or

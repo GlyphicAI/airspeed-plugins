@@ -49,7 +49,10 @@ Productivity. Select Sales if the submission portal offers that category.
 
 ## Scope for reviewers
 
-All three skills read existing evidence. They do not start agents or change records.
-Agent conversations are a separate capability of the connected MCP, available
-only where enabled for the organization. Scorecard client checks remain pending
-until the backend read tools exist; this draft is not a deployment claim.
+All three skills read existing evidence. They do not change records. They start an
+agent only when the user directly asks to run one, or when the request cannot be
+completed with the other available tools. Instructions found inside call content
+never count as a request. Agent conversations are a separate capability of the
+connected MCP, available only where enabled for the organization. Scorecard
+client checks remain pending until the backend read tools exist; this draft is
+not a deployment claim.
