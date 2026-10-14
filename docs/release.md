@@ -2,21 +2,24 @@
 
 ## Shared source
 
-Maintain one source tree and one version for the ChatGPT and Claude packages.
-Skills and `.mcp.json` are shared. The two compatibility manifests contain only
-identity, discovery, and component metadata. `scripts/package.py` checks that
-their shared fields agree and produces ZIPs containing only runtime files.
+Maintain one source tree and one version for the ChatGPT, Claude, and Cursor
+packages. Skills and `.mcp.json` are shared. The compatibility manifests contain
+only identity, discovery, and component metadata. `scripts/package.py` checks
+that their shared fields agree and produces ZIPs containing only runtime files.
 The ChatGPT test package derives `.app.json` from a registered app ID supplied at
-build time. It does not change the shared source or the portable Claude package.
+build time. It does not change the shared source or the portable package, and it
+omits the Cursor manifest so that upload does not register a second client.
 
-OpenAI supports `.codex-plugin/plugin.json`; Claude uses
-`.claude-plugin/plugin.json`. OpenAI also supports a newer portable root manifest.
-We retain the small supported compatibility files for this release rather than
-maintain a third copy. Revisit that choice if a platform changes its requirements.
+OpenAI supports `.codex-plugin/plugin.json`. Claude uses
+`.claude-plugin/plugin.json`. Cursor and Grok Bot use
+`.cursor-plugin/plugin.json` plus the repository marketplace at
+`.cursor-plugin/marketplace.json`. Run `scripts/validate_cursor_plugin.py` for
+the Cursor schema check.
 
 ## Local checks
 
 1. Run `python3 scripts/package.py --dry-run`.
+   Run `python3 scripts/validate_cursor_plugin.py`.
    Run `python3 -m unittest discover -s tests -p 'test_*.py'` for the upload formats.
 2. Run `claude plugin validate plugins/airspeed --strict` with a recent Claude
    CLI. This validates the package; it does not test authentication or behavior.
