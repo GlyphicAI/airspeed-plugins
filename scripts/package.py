@@ -78,6 +78,36 @@ def main() -> None:
         raise ValueError(
             "Review changed endpoint, transport, or extra MCP configuration"
         )
+    cursor = json.loads((plugin / ".cursor-plugin/plugin.json").read_text())
+    for field in ("name", "version", "description", "homepage", "keywords", "repository"):
+        if cursor.get(field) != codex.get(field):
+            raise ValueError(f"Cursor manifest diverges from shared metadata: {field}")
+    if cursor.get("author", {}).get("name") != codex["author"]["name"]:
+        raise ValueError("Cursor author name diverges from the shared manifests")
+    if set(cursor.get("author", {})) - {"name", "email"}:
+        raise ValueError("Cursor author only supports name and email")
+    if cursor.get("displayName") != "Airspeed":
+        raise ValueError("Cursor displayName must be Airspeed")
+    if cursor.get("logo") != "assets/logo.png":
+        raise ValueError("Cursor logo must point at assets/logo.png")
+    if not cursor.get("category"):
+        raise ValueError("Cursor category is required")
+    if cursor.get("skills") != "./skills/" or cursor.get("mcpServers") != "./.mcp.json":
+        raise ValueError("Cursor manifest must use the shared skills and MCP files")
+    cursor_market = json.loads((root / ".cursor-plugin/marketplace.json").read_text())
+    cursor_entries = cursor_market.get("plugins", [])
+    allowed_entry_fields = {"name", "source", "description", "minClientVersions"}
+    if (
+        len(cursor_entries) != 1
+        or cursor_entries[0].get("name") != plugin.name
+        or cursor_entries[0].get("source") != f"plugins/{plugin.name}"
+        or cursor_entries[0].get("description") != codex["description"]
+        or set(cursor_entries[0]) - allowed_entry_fields
+    ):
+        raise ValueError(
+            "Cursor marketplace entry must name plugins/airspeed and may only "
+            "contain name, source, description, and minClientVersions"
+        )
     skills = sorted((plugin / "skills").glob("*/SKILL.md"))
     if not skills:
         raise ValueError("At least one skill is required")
@@ -126,6 +156,7 @@ def main() -> None:
         if component not in {
             ".codex-plugin",
             ".claude-plugin",
+            ".cursor-plugin",
             "skills",
             "assets",
         } and (relative.as_posix() != ".mcp.json"):

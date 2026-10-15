@@ -10,11 +10,13 @@ and analyze existing coaching scorecards with comparable, source-linked visuals.
 plugins/airspeed/
   .codex-plugin/plugin.json   ChatGPT compatibility manifest
   .claude-plugin/plugin.json  Claude manifest
+  .cursor-plugin/plugin.json  Cursor and Grok Bot manifest
   .mcp.json                  Shared remote MCP connection
   skills/account-brief/      Shared workflow instructions
   skills/scorecard-analysis/ Shared coaching-analysis instructions
   skills/discovery-next-step-autopsy/ Discovery outcome coaching instructions
 .claude-plugin/marketplace.json  Claude repository installation catalog
+.cursor-plugin/marketplace.json  Cursor repository installation catalog
 scripts/package.py           Validate metadata and build the release ZIP
 tests/cases.json              Behavior cases for each workflow
 tests/test_package.py         Offline upload-format regression tests
@@ -67,17 +69,24 @@ the scorecard read tools above.
 Add a workflow at `plugins/airspeed/skills/<workflow-name>/SKILL.md`. Keep its
 instructions provider-neutral and use real MCP tool names and parameters. Add a
 realistic case to `tests/cases.json`, then run it in both clients. Keep
-platform-specific changes in the two small manifests.
+platform-specific changes in the compatibility manifests. The Cursor
+manifest shares the same version, description, skills, and MCP file.
+`scripts/validate_cursor_plugin.py` imports `jsonschema`. Install it locally
+with `python3 -m pip install 'jsonschema==4.23.0'` before that command. CI
+already installs the same pin.
 
 ```sh
 python3 scripts/package.py --dry-run
+python3 -m pip install 'jsonschema==4.23.0'
+python3 scripts/validate_cursor_plugin.py
 python3 -m unittest discover -s tests -p 'test_*.py'
 python3 scripts/package.py
 claude plugin validate plugins/airspeed --strict
 ```
 
-The default build writes `dist/airspeed-<version>.zip` with both supported
-manifests and the shared remote MCP configuration. Release archives exclude
+The default build writes `dist/airspeed-<version>.zip` with the Claude, Codex,
+and Cursor manifests and the shared remote MCP configuration. The ChatGPT
+upload archive still omits the Cursor manifest. Release archives exclude
 documentation, tests, scripts, and development files.
 
 For **ChatGPT's New Plugin uploader**, first register and connect Airspeed's MCP,
@@ -102,8 +111,8 @@ python3 scripts/package.py --skill account-brief
 This writes **`dist/airspeed-account-brief-<version>-skill.zip`**. A skill-only ZIP
 does not work in the New Plugin uploader.
 
-Update both manifest versions together. The packaging check rejects divergent
-metadata. Follow [the release process](docs/release.md) for client checks,
+Update the Claude, Codex, and Cursor manifest versions together. The
+packaging check rejects divergent metadata. Follow [the release process](docs/release.md) for client checks,
 submission, and version rollout.
 
 ## Release scope

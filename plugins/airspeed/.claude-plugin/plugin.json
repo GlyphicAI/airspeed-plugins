@@ -12,7 +12,8 @@
     "account-brief",
     "customer-calls",
     "scorecards",
-    "coaching"
+    "coaching",
+    "discovery"
   ],
   "skills": "./skills/",
   "mcpServers": "./.mcp.json",

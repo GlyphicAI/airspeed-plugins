@@ -1,0 +1,16 @@
+{
+  "name": "airspeed-plugins",
+  "owner": {
+    "name": "Airspeed"
+  },
+  "metadata": {
+    "description": "Airspeed workflows for customer conversations and coaching, powered by the Airspeed MCP."
+  },
+  "plugins": [
+    {
+      "name": "airspeed",
+      "source": "plugins/airspeed",
+      "description": "Prepare account briefs and analyze coaching scorecards using Airspeed evidence."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "airspeed",
+  "displayName": "Airspeed",
+  "version": "0.2.0",
+  "description": "Prepare account briefs and analyze coaching scorecards using Airspeed evidence.",
+  "author": {
+    "name": "Airspeed"
+  },
+  "homepage": "https://docs.goairspeed.com/articles/1087586625-airspeed-mcp-server",
+  "repository": "https://github.com/GlyphicAI/airspeed-plugins",
+  "logo": "assets/logo.png",
+  "keywords": [
+    "sales",
+    "account-brief",
+    "customer-calls",
+    "scorecards",
+    "coaching",
+    "discovery"
+  ],
+  "category": "Productivity",
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json"
+}

@@ -54,6 +54,9 @@ class PackageTests(unittest.TestCase):
                 set(archive.namelist()),
                 expected_shared | {".app.json", ".codex-plugin/plugin.json"},
             )
+            self.assertFalse(
+                any(name.startswith(".cursor-plugin/") for name in archive.namelist())
+            )
             manifest = json.loads(archive.read(".codex-plugin/plugin.json"))
             self.assertEqual(manifest["apps"], "./.app.json")
             self.assertNotIn("mcpServers", manifest)
@@ -94,6 +97,10 @@ class PackageTests(unittest.TestCase):
                 archive.read("airspeed/.mcp.json"), (PLUGIN / ".mcp.json").read_bytes()
             )
             self.assertNotIn("airspeed/.app.json", archive.namelist())
+            cursor = json.loads(archive.read("airspeed/.cursor-plugin/plugin.json"))
+            self.assertEqual(cursor["name"], "airspeed")
+            self.assertEqual(cursor["version"], "0.2.0")
+            self.assertEqual(cursor["mcpServers"], "./.mcp.json")
 
     def test_skill_upload_is_distinct_from_full_plugin_upload(self):
         self.package("--skill", "account-brief")
