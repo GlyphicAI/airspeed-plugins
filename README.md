@@ -71,9 +71,13 @@ instructions provider-neutral and use real MCP tool names and parameters. Add a
 realistic case to `tests/cases.json`, then run it in both clients. Keep
 platform-specific changes in the compatibility manifests. The Cursor
 manifest shares the same version, description, skills, and MCP file.
+`scripts/validate_cursor_plugin.py` imports `jsonschema`. Install it locally
+with `python3 -m pip install 'jsonschema==4.23.0'` before that command. CI
+already installs the same pin.
 
 ```sh
 python3 scripts/package.py --dry-run
+python3 -m pip install 'jsonschema==4.23.0'
 python3 scripts/validate_cursor_plugin.py
 python3 -m unittest discover -s tests -p 'test_*.py'
 python3 scripts/package.py

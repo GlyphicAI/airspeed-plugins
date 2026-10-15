@@ -14,12 +14,14 @@ OpenAI supports `.codex-plugin/plugin.json`. Claude uses
 `.claude-plugin/plugin.json`. Cursor and Grok Bot use
 `.cursor-plugin/plugin.json` plus the repository marketplace at
 `.cursor-plugin/marketplace.json`. Run `scripts/validate_cursor_plugin.py` for
-the Cursor schema check.
+the Cursor schema check. That script needs the `jsonschema` package
+(`python3 -m pip install 'jsonschema==4.23.0'`). CI already installs that pin.
 
 ## Local checks
 
 1. Run `python3 scripts/package.py --dry-run`.
-   Run `python3 scripts/validate_cursor_plugin.py`.
+   Install `jsonschema` if needed (`python3 -m pip install 'jsonschema==4.23.0'`),
+   then run `python3 scripts/validate_cursor_plugin.py`.
    Run `python3 -m unittest discover -s tests -p 'test_*.py'` for the upload formats.
 2. Run `claude plugin validate plugins/airspeed --strict` with a recent Claude
    CLI. This validates the package; it does not test authentication or behavior.

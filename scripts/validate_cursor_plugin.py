@@ -32,6 +32,15 @@ REQUIRED_SKILLS = {
     "scorecard-analysis",
     "discovery-next-step-autopsy",
 }
+# Same shared identity fields scripts/package.py compares between Cursor and Codex.
+SHARED_WITH_CODEX = (
+    "name",
+    "version",
+    "description",
+    "homepage",
+    "keywords",
+    "repository",
+)
 
 
 def fail(message: str) -> None:
@@ -126,6 +135,21 @@ def png_size_and_alpha(path: Path) -> tuple[int, int, int]:
     return width, height, minimum_alpha
 
 
+def require_codex_parity(plugin: dict) -> None:
+    codex = load_json(PLUGIN_DIR / ".codex-plugin" / "plugin.json")
+    for field in SHARED_WITH_CODEX:
+        if plugin.get(field) != codex.get(field):
+            fail(f"Cursor manifest diverges from shared metadata: {field}")
+    cursor_author = plugin.get("author")
+    codex_author = codex.get("author")
+    if (
+        not isinstance(cursor_author, dict)
+        or not isinstance(codex_author, dict)
+        or cursor_author.get("name") != codex_author.get("name")
+    ):
+        fail("Cursor author name diverges from the shared manifests")
+
+
 def discover_skills(plugin: dict) -> list[str]:
     skills_field = plugin.get("skills")
     if skills_field != "./skills/":
@@ -164,8 +188,7 @@ def main() -> None:
         if errors:
             fail(label + " schema validation failed:\n  " + "\n  ".join(errors))
 
-    if plugin.get("name") != "airspeed" or plugin.get("version") != "0.2.0":
-        fail("Cursor plugin name must be airspeed and version must be 0.2.0")
+    require_codex_parity(plugin)
     if plugin.get("displayName") != "Airspeed" or not plugin.get("category"):
         fail("Cursor plugin needs displayName Airspeed and a category")
     logo = plugin.get("logo")

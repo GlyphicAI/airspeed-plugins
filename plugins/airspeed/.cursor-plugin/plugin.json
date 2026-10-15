@@ -14,7 +14,8 @@
     "account-brief",
     "customer-calls",
     "scorecards",
-    "coaching"
+    "coaching",
+    "discovery"
   ],
   "category": "Productivity",
   "skills": "./skills/",
