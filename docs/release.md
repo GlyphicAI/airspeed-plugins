@@ -6,6 +6,9 @@ Maintain one source tree and one version for the ChatGPT, Claude, and Cursor
 packages. Skills and `.mcp.json` are shared. The compatibility manifests contain
 only identity, discovery, and component metadata. `scripts/package.py` checks
 that their shared fields agree and produces ZIPs containing only runtime files.
+Devin is a separate directory, `plugins/airspeed-devin`, because its validator
+rejects `.mcp.json` at the plugin root. That directory is the manifest and
+logo Cognition pins. It is not part of the shared version or the release ZIP.
 The ChatGPT test package derives `.app.json` from a registered app ID supplied at
 build time. It does not change the shared source or the portable package, and it
 omits the Cursor manifest so that upload does not register a second client.
@@ -16,12 +19,17 @@ OpenAI supports `.codex-plugin/plugin.json`. Claude uses
 `.cursor-plugin/marketplace.json`. Run `scripts/validate_cursor_plugin.py` for
 the Cursor schema check. That script needs the `jsonschema` package
 (`python3 -m pip install 'jsonschema==4.23.0'`). CI already installs that pin.
+`scripts/validate_devin_plugin.py` checks the Devin directory: allowed manifest
+keys, a short description of at most 40 characters, the hosted https MCP URL, a
+repo-relative logo, no root `plugin.json`, `.mcp.json`, or `mcp.json`, and no
+symlinks.
 
 ## Local checks
 
 1. Run `python3 scripts/package.py --dry-run`.
    Install `jsonschema` if needed (`python3 -m pip install 'jsonschema==4.23.0'`),
-   then run `python3 scripts/validate_cursor_plugin.py`.
+   then run `python3 scripts/validate_cursor_plugin.py` and
+   `python3 scripts/validate_devin_plugin.py`.
    Run `python3 -m unittest discover -s tests -p 'test_*.py'` for the upload formats.
 2. Run `claude plugin validate plugins/airspeed --strict` with a recent Claude
    CLI. This validates the package; it does not test authentication or behavior.
@@ -87,6 +95,15 @@ current Claude plugin upload/install flow and confirm both the skill and remote
 MCP are available. Account and workspace policy can restrict installations.
 Invoke `/airspeed:scorecard-analysis` after the scorecard read tools are deployed;
 confirm the chart or table preserves scales, missing observations, and citations.
+
+### Devin
+
+Install from Devin's marketplace after Cognition pins `plugins/airspeed-devin`
+at a commit on `main`. The entry is in the [listing draft](listing.md#devin).
+Sign in through the hosted OAuth server at
+`https://mcp.goairspeed.com/mcp-oauth`. This directory ships the MCP. The
+account-brief, scorecard-analysis, and discovery-next-step-autopsy skills stay
+in `plugins/airspeed`.
 
 ### ChatGPT
 
@@ -164,18 +181,21 @@ an existing registered MCP ID can stand in for the remote server submission.
 3. Create the Claude plugin submission with the public source/package and its
    requested listing and review information. A connector directory listing is a
    separate submission; it does not publish the bundled workflow.
-4. Record both submission URLs, owner, version, and status in the team's
+4. For Devin, give Cognition the git-subdir entry in the
+   [listing draft](listing.md#devin), with `sha` set to the merged commit on
+   `main`. The listing reads the manifest from this repository at that commit.
+5. Record both submission URLs, owner, version, and status in the team's
    release tracker. Keep submitted, approved, published, and installed distinct.
-5. After approval, publish the accepted releases and capture their installation
+6. After approval, publish the accepted releases and capture their installation
    links. Update Airspeed Settings and the customer guide with those verified
    links. Do not promise a marketplace installation link before publication.
-6. Test installation from each published listing with a fresh user account.
+7. Test installation from each published listing with a fresh user account.
 
 ## Updates and recovery
 
-Edit shared skills once. Add or adjust behavior cases, bump both manifest
-versions, rerun checks and both client flows, and submit the new version where
-required. A remote MCP tool change can require a separate catalog refresh or
+Edit shared skills once. Add or adjust behavior cases, bump the Claude, Codex,
+and Cursor manifest versions together, rerun checks and the client flows, and
+submit the new version where required. The Devin manifest has no version field. A remote MCP tool change can require a separate catalog refresh or
 review; do not assume existing installations discover it immediately.
 
 Retain the previous source tag and release ZIP. For a faulty skill release,
@@ -195,3 +215,4 @@ Recheck platform requirements before each public submission.
 - [Claude plugin schema](https://code.claude.com/docs/en/plugins-reference)
 - [Claude plugin submission](https://claude.com/docs/plugins/submit)
 - [Airspeed customer guide](https://docs.goairspeed.com/articles/1087586625-airspeed-mcp-server)
+- [Devin marketplace plugin rules](https://github.com/CognitionAI/devin-marketplace/blob/main/.agents/skills/adding-a-plugin/SKILL.md)

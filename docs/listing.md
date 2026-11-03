@@ -1,8 +1,8 @@
 # Marketplace listing draft
 
-Submission draft for ChatGPT, Claude, and the Cursor / Grok Bot marketplace
-([submit a plugin](https://x.ai/bot/marketplace/submit-a-plugin)). This text has
-not been submitted or published as a marketplace listing.
+Submission draft for ChatGPT, Claude, the Cursor / Grok Bot marketplace
+([submit a plugin](https://x.ai/bot/marketplace/submit-a-plugin)), and Devin.
+This text has not been submitted or published as a marketplace listing.
 
 ## Name
 
@@ -139,3 +139,36 @@ Prepare account briefs and review coaching using Airspeed call evidence. Sign in
 ### Reviewer testing instructions
 
 Install from https://github.com/GlyphicAI/airspeed-plugins (plugin directory plugins/airspeed). Connect the HTTP MCP at https://mcp.goairspeed.com/mcp-oauth and sign in with OAuth using an Airspeed account. A dedicated reviewer account is still TBD by Diogo. After sign-in, try an account brief for a recent customer, comparable coaching scorecard trends, and why some Discovery calls book a next step while others stall. Confirm list_scorecards, get_scorecard, list_scorecard_results, and get_scorecard_report are present. The skills read evidence and do not edit records.
+
+## Devin
+
+Cognition's marketplace
+([devin-marketplace](https://github.com/CognitionAI/devin-marketplace)) lists
+third-party plugins by pinning a directory in the upstream repository. The
+directory in this repository is `plugins/airspeed-devin`. It contains
+`.devin-plugin/plugin.json` and `logo.png`. The shared `plugins/airspeed` tree
+keeps `.mcp.json` for the other clients, and Devin rejects that file at a
+plugin root, so the Devin listing is its own directory.
+
+Display name: Airspeed. Short description: "Sales calls, deals and coaching".
+Homepage: https://www.goairspeed.com. Keyword: `Customer & Sales`. The MCP URL
+is `https://mcp.goairspeed.com/mcp-oauth`. Sign-in is that server's OAuth flow.
+The directory has no credentials and no symlinks. The logo is the same file as
+`plugins/airspeed/assets/logo.png`.
+
+After this directory is on `main`, add this object to `optionalPlugins` in
+Cognition's `.devin-plugin/plugin.json`. The `sha` is the full commit on `main`
+that contains the directory. It stays TBD until that merge.
+
+```json
+{
+  "source": "git-subdir",
+  "url": "https://github.com/GlyphicAI/airspeed-plugins.git",
+  "path": "plugins/airspeed-devin",
+  "sha": "<40-hex sha of the merge commit on main>"
+}
+```
+
+Do not copy the files into Cognition's repository. Their validator reads the
+manifest from the pinned commit. Workflow skills stay in `plugins/airspeed`;
+this listing is the hosted MCP.
