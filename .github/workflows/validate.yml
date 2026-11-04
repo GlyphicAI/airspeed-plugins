@@ -19,4 +19,5 @@ jobs:
       - run: python3 -m pip install 'jsonschema==4.23.0'
       - run: python3 scripts/package.py --dry-run
       - run: python3 scripts/validate_cursor_plugin.py
+      - run: python3 scripts/validate_devin_plugin.py
       - run: python3 -m unittest discover -s tests -p 'test_*.py'

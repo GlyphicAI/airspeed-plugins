@@ -15,6 +15,9 @@ plugins/airspeed/
   skills/account-brief/      Shared workflow instructions
   skills/scorecard-analysis/ Shared coaching-analysis instructions
   skills/discovery-next-step-autopsy/ Discovery outcome coaching instructions
+plugins/airspeed-devin/
+  .devin-plugin/plugin.json   Devin marketplace manifest
+  logo.png                    Devin listing logo
 .claude-plugin/marketplace.json  Claude repository installation catalog
 .cursor-plugin/marketplace.json  Cursor repository installation catalog
 scripts/package.py           Validate metadata and build the release ZIP
@@ -27,6 +30,17 @@ The server remains at `https://mcp.goairspeed.com/mcp-oauth`. Users authenticate
 with their own Airspeed account. MCP access never exceeds their Airspeed access.
 This package contains no credentials, customer data, server implementation, or
 local installation hooks.
+
+Devin's marketplace lists `plugins/airspeed-devin`. That directory contains
+`.devin-plugin/plugin.json` and `logo.png`. Devin rejects a plugin root that
+also contains `.mcp.json`, `mcp.json`, or `plugin.json`, and the shared
+`plugins/airspeed` tree keeps `.mcp.json` for ChatGPT, Claude, and Cursor, so
+the Devin listing is its own directory. `logo.png` is the same Airspeed mark as
+`plugins/airspeed/assets/logo.png`. The manifest name is Airspeed, and the MCP
+URL is the hosted OAuth server above. Cognition pins the directory with a
+git-subdir entry. The [listing draft](docs/listing.md#devin) has that entry.
+There are no symlinks and no credentials in the directory. The workflow skills
+stay in `plugins/airspeed`; the Devin listing is the hosted MCP.
 
 All three skills read data. The remote server can expose other tools,
 including tools that start work. Installing this skill does not restrict the
@@ -79,6 +93,7 @@ already installs the same pin.
 python3 scripts/package.py --dry-run
 python3 -m pip install 'jsonschema==4.23.0'
 python3 scripts/validate_cursor_plugin.py
+python3 scripts/validate_devin_plugin.py
 python3 -m unittest discover -s tests -p 'test_*.py'
 python3 scripts/package.py
 claude plugin validate plugins/airspeed --strict
@@ -87,7 +102,7 @@ claude plugin validate plugins/airspeed --strict
 The default build writes `dist/airspeed-<version>.zip` with the Claude, Codex,
 and Cursor manifests and the shared remote MCP configuration. The ChatGPT
 upload archive still omits the Cursor manifest. Release archives exclude
-documentation, tests, scripts, and development files.
+documentation, tests, scripts, development files, and `plugins/airspeed-devin`.
 
 For **ChatGPT's New Plugin uploader**, first register and connect Airspeed's MCP,
 then build a package using that app's ID:
@@ -112,7 +127,8 @@ This writes **`dist/airspeed-account-brief-<version>-skill.zip`**. A skill-only 
 does not work in the New Plugin uploader.
 
 Update the Claude, Codex, and Cursor manifest versions together. The
-packaging check rejects divergent metadata. Follow [the release process](docs/release.md) for client checks,
+packaging check rejects divergent metadata. The Devin manifest has no version
+field; Devin rejects unexpected keys, so leave it out. Follow [the release process](docs/release.md) for client checks,
 submission, and version rollout.
 
 ## Release scope

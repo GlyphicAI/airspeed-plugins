@@ -1,0 +1,16 @@
+{
+  "name": "airspeed",
+  "displayName": "Airspeed",
+  "description": "Search Airspeed customer calls, deals, and coaching scorecards to prepare account briefs and coach reps",
+  "shortDescription": "Sales calls, deals and coaching",
+  "homepage": "https://www.goairspeed.com",
+  "logo": "logo.png",
+  "keywords": [
+    "Customer & Sales"
+  ],
+  "mcpServers": {
+    "airspeed": {
+      "url": "https://mcp.goairspeed.com/mcp-oauth"
+    }
+  }
+}
