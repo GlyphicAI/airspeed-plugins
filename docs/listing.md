@@ -55,41 +55,33 @@ category field.
 ## Connected MCP tools
 
 Checked against the production server at `https://mcp.goairspeed.com/mcp-oauth`
-on 14 Oct 2026. The three skills read evidence. The server also exposes tools
-that create or change records. Installing a skill does not hide those tools or
-replace Airspeed's own authorization.
+on 27 Nov 2026: 73 tools, grouped by whether they only read or also create or
+change records. The three skills use only reads. Installing a skill does not
+hide the other tools or replace Airspeed's own authorization.
 
-Scorecard reads, all live:
+### Reads (46)
 
-- `list_scorecards`
-- `get_scorecard`
-- `list_scorecard_results`
-- `get_scorecard_report`
+- Scorecards: `list_scorecards`, `get_scorecard`, `list_scorecard_results`, `get_scorecard_report`
+- Calls: `list_calls`, `get_call_info`, `get_call_media`, `get_call_snippets`, `list_call_tags`, `list_call_shares`, `get_call_activity_stats`
+- Companies and deals: `list_companies`, `get_company`, `get_company_profile`, `get_company_emails`, `list_deals`, `get_deal`
+- Tasks, people, and meetings: `list_tasks`, `list_users`, `list_meetings`, `get_meeting_recording_status`
+- Playbooks and search: `list_playbooks`, `get_playbook`, `list_playbook_versions`, `get_playbook_version`, `search_airspeed`, `search_support_docs`
+- Insights: `get_strategic_insights`, `get_loss_reasons`, and `list_custom_insights` (the organization's call and deal custom insight definitions)
+- Coaching: `list_role_plays`, `get_role_play` (AI Roleplay sessions, their scenarios, and skill scores)
+- Agents and comments: `list_agents`, `get_agent`, `list_agent_runs`, `get_agent_run`, `list_agent_threads`, `get_agent_thread`, `list_comments`
+- Forecasts: `get_forecast_periods`, `get_forecasting_settings`, `list_forecast_history`, `get_forecast_rollup`, `get_forecast_rollup_deals`, `list_forecast_boards`
+- Changelog: `get_changelog`
 
-Calls, companies, and coaching context:
+### Creates or changes records (27)
 
-- `list_calls`, `get_call_info`, `get_call_media`, `get_call_snippets`, `update_call`
-- `list_call_tags`, `create_call_tag`, `set_call_tags`, `edit_tag_definition`
-- `list_call_shares`, `create_share`, `create_call_snippet`, `revoke_share`
-- `get_call_activity_stats`
-- `list_companies`, `get_company`, `get_company_profile`, `get_company_emails`
-- `list_deals`, `get_deal`, `update_deal`
-- `list_tasks`, `save_task`
-- `list_users`, `invite_user`
-- `list_meetings`, `get_meeting_recording_status`, `join_meeting`, `remove_meeting_bot`
-- `list_playbooks`, `get_playbook`, `list_playbook_versions`, `get_playbook_version`
-- `search_airspeed`, `search_support_docs`
-- `get_strategic_insights`, `get_loss_reasons`
-- `get_changelog`
-
-Agents, comments, and forecasts:
-
-- `list_agents`, `get_agent`, `list_agent_runs`, `get_agent_run`, `run_agent`
-- `list_agent_threads`, `get_agent_thread`, `share_agent_thread`, `stop_agent`
-- `list_comments`, `save_comment`, `delete_comment`, `set_comment_reaction`
-- `get_forecast_periods`, `get_forecasting_settings`, `list_forecast_history`
-- `get_forecast_rollup`, `get_forecast_rollup_deals`, `list_forecast_boards`
-- `submit_forecast`, `update_forecast_quotas`
+- Calls: `update_call`, `create_call_tag`, `set_call_tags`, `edit_tag_definition`, `create_share`, `create_call_snippet`, `revoke_share`
+- Companies and deals: `link_slack_deal_room` (links an existing Slack channel to a company as its deal room and can invite people to it), `update_deal`
+- Tasks, people, and meetings: `save_task`, `invite_user`, `join_meeting`, `remove_meeting_bot`
+- Insights: `create_custom_insight`, `update_custom_insight` (past calls are not re-analyzed; needs custom insight edit permission)
+- Coaching: `assign_role_play` (assigns an existing AI Roleplay scenario without notifying people), `create_scorecard`, `delete_scorecard` (soft-deletes, so it stops scoring new calls; both need organization settings edit permission)
+- Agents and comments: `run_agent`, `share_agent_thread`, `stop_agent`, `save_comment`, `delete_comment`, `set_comment_reaction`
+- Forecasts: `submit_forecast`, `update_forecast_quotas`
+- Feedback: `submit_feedback` (sends the user's feedback to the Airspeed team, after the user agrees)
 
 `list_agent_activity` is no longer on the server. Use `list_agent_runs`.
 

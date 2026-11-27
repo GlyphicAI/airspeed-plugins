@@ -65,9 +65,10 @@ CRM data.
 
 Scorecard analysis needs the server's scorecard read tools. If they are absent,
 the skill explains the missing capability and can analyze supplied evidence;
-it does not generate new results or start an agent as a substitute. The reduced
-scorecard interface is read-only, keeps native history limits, and does not
-preserve historical rubric scales. This workflow
+it does not generate new results or start an agent as a substitute. The skill
+uses only the scorecard read tools, which keep native history limits and do not
+preserve historical rubric scales. The server also has `create_scorecard` and
+`delete_scorecard`, which the skill never calls. This workflow
 awaits backend deployment and authenticated client validation before release.
 
 The discovery-next-step-autopsy skill compares Discovery calls by their recorded
