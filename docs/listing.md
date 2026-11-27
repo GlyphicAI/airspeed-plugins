@@ -55,8 +55,9 @@ category field.
 ## Connected MCP tools
 
 Checked against the production server at `https://mcp.goairspeed.com/mcp-oauth`
-on 14 Oct 2026. The three skills read evidence. The server also exposes tools
-that create or change records. Installing a skill does not hide those tools or
+on 14 Oct 2026, and updated on 27 Nov 2026 to the 73 tools the server now
+exposes. The three skills read evidence. The server also exposes tools that
+create or change records. Installing a skill does not hide those tools or
 replace Airspeed's own authorization.
 
 Scorecard reads, all live:
@@ -73,6 +74,7 @@ Calls, companies, and coaching context:
 - `list_call_shares`, `create_share`, `create_call_snippet`, `revoke_share`
 - `get_call_activity_stats`
 - `list_companies`, `get_company`, `get_company_profile`, `get_company_emails`
+- `link_slack_deal_room`: links an existing Slack channel to a company as its deal room and can invite people to it (changes records)
 - `list_deals`, `get_deal`, `update_deal`
 - `list_tasks`, `save_task`
 - `list_users`, `invite_user`
@@ -80,6 +82,12 @@ Calls, companies, and coaching context:
 - `list_playbooks`, `get_playbook`, `list_playbook_versions`, `get_playbook_version`
 - `search_airspeed`, `search_support_docs`
 - `get_strategic_insights`, `get_loss_reasons`
+- `list_custom_insights`: lists the organization's call and deal custom insight definitions
+- `create_custom_insight`, `update_custom_insight`: create or change a call or deal custom insight; past calls are not re-analyzed (changes records, needs custom insight edit permission)
+- `list_role_plays`, `get_role_play`: read AI Roleplay sessions, their scenarios, and skill scores
+- `assign_role_play`: assigns an existing AI Roleplay scenario to people in the organization without notifying them (changes records)
+- `create_scorecard`, `delete_scorecard`: create a scorecard definition, or soft-delete one so it stops scoring new calls (changes records, needs organization settings edit permission)
+- `submit_feedback`: sends the user's feedback about Airspeed to the Airspeed team, after the user agrees
 - `get_changelog`
 
 Agents, comments, and forecasts:
