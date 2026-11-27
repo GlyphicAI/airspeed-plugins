@@ -1,7 +1,9 @@
 # Interpret native scorecard reads
 
 Read the live schemas first; availability depends on backend deployment. The
-reduced interface wraps existing app reads and has no scorecard write tools.
+skill uses only the four scorecard read tools below, which wrap existing app
+reads. The server also has `create_scorecard` and `delete_scorecard`; this
+skill never calls them.
 
 - `list_scorecards`: optional `filters.enabled_only`.
 - `get_scorecard`: an Airspeed `scorecard_id`, returning the current definition.
